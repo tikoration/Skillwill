@@ -33,7 +33,7 @@ function calculator(a,b,operation){
     return false
 }
 
-console.log(isEqual('7',7))
+console.log(isEqual("12",12))
 console.log(fahrenToCels(36))
 console.log(calculator(12,2,'/'))
 
