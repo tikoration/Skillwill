@@ -1,11 +1,12 @@
 
 
 function isEqual(a, b){
-    if(typeof a === typeof b && a == b){
+    if(typeof a === typeof b){
+        if(a === b){
         return "a is equal to b"
-    }else{
-        return "a is not equal to b"
+        }
     }
+    return "a is not equal to b"
 }
 
 function fahrenToCels(fahrenheit){
@@ -32,7 +33,7 @@ function calculator(a,b,operation){
     return false
 }
 
-console.log(isEqual("12",12))
+console.log(isEqual('7',7))
 console.log(fahrenToCels(36))
 console.log(calculator(12,2,'/'))
 
