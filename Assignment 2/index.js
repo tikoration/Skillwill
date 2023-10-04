@@ -3,7 +3,7 @@ const users = [{ name: 'Temo', age: 25 }, { name: 'Lasha', age: 21 }, { name: 'A
 // Task 1
 
 function youngest(){
-    // let age = Infinity;
+    // let age = Infinity
     let age = 122 //oldest person according to google
     let user
     for(let i=0; i < users.length;i++){
