@@ -1,5 +1,7 @@
 const users = [{ name: 'Temo', age: 25 }, { name: 'Lasha', age: 21 }, { name: 'Ana', age: 28 }]
 
+// Task 1
+
 function youngest(){
     let age = 100;
     let user;
@@ -12,15 +14,23 @@ function youngest(){
     return user
 }
 
-let user = {firstName: 'Tinatin', lastName: 'Mgebrishvili'}
+console.log(youngest())
 
-function newObj(){
+// Task 2
+
+function newObj(user){
     let user2 = {}
     for(const key in user){
        user2[key] = user[key]
     }
     return user2
 }
+
+const newUsers = users.map(user => newObj(user))
+
+console.log(newUsers)
+
+// Task 3
 
 function dice(){
     let a = 0
@@ -45,6 +55,4 @@ function dice(){
 
 }
 
-console.log(youngest())
-console.log(newObj())
 console.log(dice())
