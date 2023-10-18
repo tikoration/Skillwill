@@ -10,13 +10,13 @@ console.log(replaceFunc("I like flowers", "flowers", "plants"))
 // Task 2
 
 const upSentence = (string) => {
-    const newStr = string.split('')
-    .map(letter => letter.toUpperCase())
-    .join('')
+    const newStr = string.split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
     return newStr
 }
 
-console.log(upSentence("hello"))
+console.log(upSentence("hello hello"))
 
 // Task 3
 
