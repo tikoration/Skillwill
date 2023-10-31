@@ -28,11 +28,16 @@ fetch('https://jsonplaceholder.typicode.com/posts')
 const cloneObj = (obj) => {
     const newObj = {}
     for(let key in obj){
+        // checking if obj is something to loop over again,
+        // if not copying it to newObj
         if(typeof obj[key] !== "object" || obj[key] === null){
             newObj[key] = obj[key]
         } else {
+            // checking if its an array and mapping over it
             if(Array.isArray(obj[key])){
                 newObj[key] = obj[key].map((el) => {
+                    // checking if array has object or array that
+                    // needs recursion
                     if(typeof el !== "object"){
                         return el
                     } else {
@@ -40,6 +45,7 @@ const cloneObj = (obj) => {
                     }
                 })
             }else {
+                // for objects
                 newObj[key] = cloneObj(obj[key])
             }
         }
