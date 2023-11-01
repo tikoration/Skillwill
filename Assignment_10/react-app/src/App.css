@@ -1,0 +1,65 @@
+body{
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+}
+
+.main-component{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.info{
+  text-align: center;
+  width: 100%;
+}
+
+div.info h1, h3{
+  color: #8E656E;
+  font-weight: 400;
+}
+
+div.info h1{
+  margin-top: 240px;
+  font-size: 50px;
+}
+
+div.info h3{
+  font-size: 25px;
+  margin-bottom: 50px;
+}
+
+div.info p{
+  margin: 0 22%;
+  text-align: center;
+  line-height: 30px;
+  color:#5d4248;
+  font-size: 17px;
+}
+
+.profile-photo{
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  border: 8px solid white;
+  margin-top: 70px;
+}
+
+.cover-frame{
+  background-color: #ebece3;
+  height: 400px;
+  width: 100%;
+}
+
+.socials{
+  display: flex;
+  margin-top: 30px;
+  gap: 20px;  
+}
+
+a{
+  text-decoration: none;
+  color: #8E656E;
+}
