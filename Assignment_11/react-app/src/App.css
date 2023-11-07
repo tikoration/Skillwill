@@ -1,0 +1,37 @@
+
+
+.App{
+  text-align: center;
+}
+
+.book{
+  width: 510px;
+  margin: 20px;
+}
+
+.btn{
+  border-radius: 10px;
+  border: none;
+  width: 160px;
+  height: 40px;
+  background-color: antiquewhite;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.book-list{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.image{
+  height: 400px;
+}
+
+.description{
+  border-bottom: solid 1px antiquewhite;
+  min-height: 225px;
+  padding: 20px;
+
+}
