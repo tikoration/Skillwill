@@ -14,6 +14,10 @@ class ToDoList extends Component{
 
     componentDidMount() {
         console.log("ToDoList component has mounted");
+        const randomNumber = Math.floor(Math.random()*200 + 1)
+        fetch(`https://jsonplaceholder.typicode.com/todos/${randomNumber}`)
+        .then(data => data.json())
+        .then(res=> console.log(res))
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -21,11 +25,13 @@ class ToDoList extends Component{
             nextState.inputValue !== this.state.inputValue ||
             nextState.tasks !== this.state.tasks ||
             nextState.doneTasks !== this.state.doneTasks
-        );
+        )
     }
 
     componentDidUpdate(prevProps, prevState) {
-        console.log("Component updated", prevState, this.state);
+        if(this.state.tasks !== prevState.tasks || this.state.doneTasks !== prevState.doneTasks || this.state.inputValue !== prevState.inputValue){
+            console.log("Component updated", prevState, this.state)
+        }
     }
 
     onChange = (event) => {
