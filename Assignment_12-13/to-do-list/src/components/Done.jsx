@@ -1,6 +1,6 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 
-class Done extends Component{
+class Done extends PureComponent{
     render(){
        const {id, name, action, move} = this.props
         return(

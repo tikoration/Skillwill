@@ -1,6 +1,6 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 
-class ToDo extends Component{
+class ToDo extends PureComponent{
     render(){
         const {id, name, action} = this.props
         return(

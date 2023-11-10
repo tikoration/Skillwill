@@ -3,11 +3,29 @@ import ToDo from "./ToDo"
 import Done from "./Done"
 
 class ToDoList extends Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            inputValue:  "",
+            tasks: [],
+            doneTasks: []
+        }
+    } 
 
-    state = {
-        inputValue:  "",
-        tasks: [],
-        doneTasks: []
+    componentDidMount() {
+        console.log("ToDoList component has mounted");
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        return (
+            nextState.inputValue !== this.state.inputValue ||
+            nextState.tasks !== this.state.tasks ||
+            nextState.doneTasks !== this.state.doneTasks
+        );
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.log("Component updated", prevState, this.state);
     }
 
     onChange = (event) => {
