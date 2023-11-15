@@ -1,127 +1,101 @@
-import { Component } from "react"
+import { useState, useRef, useEffect } from "react"
 import ToDo from "./ToDo"
 import Done from "./Done"
 
-class ToDoList extends Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            inputValue:  "",
-            tasks: [],
-            doneTasks: []
-        }
-    } 
+function ToDoList(){
 
-    componentDidMount() {
-        console.log("ToDoList component has mounted");
-        const randomNumber = Math.floor(Math.random()*200 + 1)
-        fetch(`https://jsonplaceholder.typicode.com/todos/${randomNumber}`)
-        .then(data => data.json())
-        .then(res=> console.log(res))
-    }
+    const [inputValue, setInputValue] = useState("")
+    const [tasks, setTasks] = useState([])
+    const [doneTasks, setDoneTasks] = useState([])
+    const ref = useRef(0)
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return (
-            nextState.inputValue !== this.state.inputValue ||
-            nextState.tasks !== this.state.tasks ||
-            nextState.doneTasks !== this.state.doneTasks
-        )
-    }
+    useEffect(() => {
+        ref.current.focus()
+    },[])
 
-    componentDidUpdate(prevProps, prevState) {
-        if(this.state.tasks !== prevState.tasks || this.state.doneTasks !== prevState.doneTasks || this.state.inputValue !== prevState.inputValue){
-            console.log("Component updated", prevState, this.state)
-        }
-    }
-
-    onChange = (event) => {
+    const onChange = (event) => {
         const value = event.target.value;
-        this.setState({
-          inputValue: value,
-        })
+        setInputValue(value)
       }
 
-    addTask = (event) => {
+    const addTask = (event) => {
         event.preventDefault()
 
         const task = {
-            id:  this.state.tasks.length + 1,
-            name: this.state.inputValue
+            id:  tasks.length + 1,
+            name: inputValue
         }
-
-        this.setState({
-            inputValue: "",
-            tasks: [task, ...this.state.tasks]
-        })
+        setInputValue("")
+        setTasks((prevState) => [task, ...prevState])
     }
 
-    markAsDone = (id) => {
+   const  markAsDone = (id) => {
         
         const leftList = []
-        this.state.tasks.forEach(task => {
+        tasks.forEach(task => {
             if(task.id === id){
-                this.setState({doneTasks: [task, ...this.state.doneTasks]})
+                setDoneTasks((prevState) => [task, ...prevState])
             } else {
                 leftList.push(task)
             }
         })
-        this.setState({tasks: leftList})
+        setTasks(leftList)
     }
 
-    removeTask = (id) => {
-        const removedList = this.state.doneTasks.filter(task => task.id !== id)
-        this.setState({doneTasks: removedList})
+    const removeTask = (id) => {
+        const removedList = doneTasks.filter(task => task.id !== id)
+        setDoneTasks(removedList)
     }
     
-    returnTask = (id) => {
-        const returnVal = this.state.doneTasks.filter(task => task.id === id)
-        returnVal.push(...this.state.tasks)
-        const leftVal = this.state.doneTasks.filter(task => task.id !== id)
-        this.setState({tasks: returnVal, doneTasks: leftVal})
+    const returnTask = (id) => {
+        const returnVal = doneTasks.filter(task => task.id === id)
+        returnVal.push(...tasks)
+        const leftVal = doneTasks.filter(task => task.id !== id)
+        setTasks(returnVal)
+        setDoneTasks(leftVal)
     }
-
-    render(){
-        return(
-            <div>
-                <form onSubmit={this.addTask}>
-                    <input 
-                        type="text"
-                        onChange={this.onChange}
-                        value={this.state.inputValue}
-                    />
-                    <button type="submit">Add Task</button>
-                </form>
-                <div className="lists">
-                    <div className="to-do-list">
-                        <h1>To Do List</h1>
-                        {this.state.tasks.map((task) => (
-                                <ToDo
-                                    key = {task.id}
-                                    id={task.id}
-                                    name={task.name}
-                                    action={this.markAsDone}
-                                />
-                            ))
-                        }
-                    </div>
-                    <div className="done-list">
-                        <h1>Done</h1>
-                        {
-                        this.state.doneTasks.map((task) => (
-                                <Done 
-                                    key = {task.id}
-                                    id = {task.id}
-                                    name={task.name}
-                                    action = {this.removeTask}
-                                    move = {this.returnTask}
-                                />
-                        )) 
-                        }
-                    </div>
+    
+    return(
+        <div>
+            <form onSubmit={addTask}>
+                <input 
+                    ref={ref}
+                    type="text"
+                    onChange={onChange}
+                    value={inputValue}
+                />
+                <button type="submit">Add Task</button>
+            </form>
+            <div className="lists">
+                <div className="to-do-list">
+                    <h1>To Do List</h1>
+                    {tasks.map((task) => (
+                            <ToDo
+                                key = {task.id}
+                                id={task.id}
+                                name={task.name}
+                                action={markAsDone}
+                            />
+                        ))
+                    }
+                </div>
+                <div className="done-list">
+                    <h1>Done</h1>
+                    {
+                    doneTasks.map((task) => (
+                            <Done 
+                                key = {task.id}
+                                id = {task.id}
+                                name={task.name}
+                                action = {removeTask}
+                                move = {returnTask}
+                            />
+                    )) 
+                    }
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 export default ToDoList
