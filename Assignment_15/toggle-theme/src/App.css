@@ -2,7 +2,38 @@
   text-align: center;
 }
 
+body{
+  margin: 0px;
+}
+
 .dark-mode{
-  background-color: black;
-  height: 200px;
+  background-color: #121212;
+  height: 100vh;
+  width: 100vw;
+}
+
+.light-mode{
+  background-color: #fafafa;
+  height: 100vh;
+  width: 100vw;
+}
+
+button{
+  margin-top: 20px;
+  height: 50px;
+  width: 200px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.dark-mode > button{
+  background-color: #3d3d3d;
+  border: 1px solid #aaaaaa;
+  color: #fafafa;
+}
+
+.light-mode > button{
+  background-color: #e4e5f1;
+  color:  #484b6a;
+  border: 2px solid #9394a5;
 }
