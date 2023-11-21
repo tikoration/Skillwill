@@ -30,7 +30,7 @@ input{
   gap: 10px;
 }
 
-.to-do-list, .done-list{
+.to-do-list, .done-list, .in-progress-list{
   border: solid 1px;
   padding: 5px;
   min-height: 500px;
