@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react"
 import ToDo from "./ToDo"
 import Done from "./Done"
 import InProgress from "./InProgress"
+import {nanoid} from "nanoid"
 
 function ToDoList(){
 
@@ -15,6 +16,7 @@ function ToDoList(){
         ref.current.focus()
     },[])
 
+
     const onChange = (event) => {
         const value = event.target.value;
         setInputValue(value)
@@ -22,13 +24,20 @@ function ToDoList(){
 
     const addTask = (event) => {
         event.preventDefault()
-
-        const task = {
-            id:  tasks.length + 1,
-            name: inputValue
+        
+        let task
+        if(inputValue !== ""){
+            task = {
+                id:  nanoid(),
+                name: inputValue
+            }
         }
+
         setInputValue("")
-        setTasks((prevState) => [task, ...prevState])
+        if(task){
+            setTasks((prevState) => [task, ...prevState])
+        }
+        
     }
 
     const moveToInProgress = (id) => {
@@ -46,6 +55,7 @@ function ToDoList(){
    const  markAsDone = (id) => {
         
         const leftList = []
+        const leftList2 = []
         inProgress.forEach(task => {
             if(task.id === id){
                 setDoneTasks((prevState) => [task, ...prevState])
@@ -53,7 +63,15 @@ function ToDoList(){
                 leftList.push(task)
             }
         })
+        tasks.forEach(task => {
+            if(task.id === id){
+                setDoneTasks((prevState) => [task, ...prevState])
+            } else {
+                leftList2.push(task)
+            }
+        })
         setInProgress(leftList)
+        setTasks(leftList2)
     }
 
     const removeTask = (id) => {
@@ -70,7 +88,7 @@ function ToDoList(){
     }
     
     return(
-        <div>
+        <div> 
             <form onSubmit={addTask}>
                 <input 
                     ref={ref}
@@ -82,39 +100,44 @@ function ToDoList(){
             </form>
             <div className="lists">
                 <div className="to-do-list">
-                    <h1>To Do List | {tasks.length}</h1>
-                    {tasks.map((task) => (
+                <span className="title" style={{borderColor: "#ed4a32"}}><h1 className="title-name">To Do List</h1><h1>{tasks.length}</h1></span>
+                    {tasks.map((task, index) => (
                             <ToDo
                                 key = {task.id}
                                 id={task.id}
                                 name={task.name}
                                 action={moveToInProgress}
+                                done={markAsDone}
+                                index={index}
                             />
                         ))
                     }
                 </div>
                 <div className="in-progress-list">
-                    <h1>In Progress | {inProgress.length}</h1>
+                <span className="title" style={{borderColor: "#efca16"}}><h1 className="title-name">In Progress</h1><h1>{inProgress.length}</h1></span>
                     {
-                        inProgress.map((task) =>(
+                        inProgress.map((task, index) =>(
                             <InProgress
                                 key = {task.id}
                                 id={task.id}
                                 name={task.name}
-                                action={markAsDone}/>
+                                action={markAsDone}
+                                index={index}
+                                />
                         ))
                     }
                 </div>
                 <div className="done-list">
-                    <h1>Done | {doneTasks.length}</h1>
+                    <span className="title" style={{borderColor: "#91cf55"}}><h1 className="title-name">Done</h1><h1>{doneTasks.length}</h1></span>
                     {
-                    doneTasks.map((task) => (
+                    doneTasks.map((task, index) => (
                             <Done 
                                 key = {task.id}
                                 id = {task.id}
                                 name={task.name}
                                 action = {removeTask}
                                 move = {returnTask}
+                                index={index}
                             />
                     )) 
                     }
