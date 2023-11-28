@@ -1,0 +1,36 @@
+.App {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  width: 500px;
+  margin: auto;
+}
+
+.character-photo{
+  width: 500px;
+  margin-top: 30px;
+}
+
+.nav-bar{
+  display: flex;
+  gap: 80px;
+  justify-content: center;
+  text-decoration: none;
+  border-bottom: 1px solid black;
+  font-size: 30px;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+  cursor: pointer
+}
+
+.about{
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.about-photo{
+  width: 500px;
+}
