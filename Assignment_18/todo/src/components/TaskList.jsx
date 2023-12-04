@@ -8,6 +8,10 @@ const TaskList = ({onFormSubmit}) => {
         e.preventDefault()
         onFormSubmit(task)
     }
+
+    const clear = () => {
+        document.getElementById('form-input').value=''
+    }
    
     return(
         <>
@@ -15,8 +19,9 @@ const TaskList = ({onFormSubmit}) => {
                 <input 
                     type="text"
                     onChange={e => setTask(e.target.value)}
-                />
-                <button> Add Task</button>
+                    id="form-input"
+                />         
+                <button type="submit" onClick={clear}>Add Task</button>
             </form>
         </>
     )
