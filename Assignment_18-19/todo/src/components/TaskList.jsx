@@ -1,27 +1,41 @@
-import { useState } from "react"
+import { useRef } from "react"
 
-const TaskList = ({onFormSubmit}) => {
+const TaskList = ({onFormSubmit, name, contributor, deadline, isCompleted}) => {
 
-    const [task, setTask] = useState()
+    const taskRef = useRef()
+    const deadlineRef = useRef()
+    const contributorRef = useRef()
 
     const onSubmit = (e) => {
         e.preventDefault()
-        onFormSubmit(task)
-    }
-
-    const clear = () => {
-        document.getElementById('form-input').value=''
+        if(taskRef.current && contributorRef.current && deadlineRef.current){
+            onFormSubmit(taskRef.current.value, contributorRef.current.value, deadlineRef.current.value, isCompleted = false)
+        }
     }
    
-    return(
+    return( 
         <>
             <form onSubmit={onSubmit}>
                 <input 
                     type="text"
-                    onChange={e => setTask(e.target.value)}
+                    placeholder="Task name"
                     id="form-input"
-                />         
-                <button type="submit" onClick={clear}>Add Task</button>
+                    ref={taskRef}
+                    defaultValue={name}
+                /> 
+                <input 
+                    type="text"
+                    placeholder="Contributor"
+                    ref={contributorRef}
+                    defaultValue={contributor}
+                /> 
+                  <input 
+                    type="text"
+                    placeholder="Deadline"
+                    ref={deadlineRef}
+                    defaultValue={deadline}
+                /> 
+                <button className="task-btn" type="submit">Add Task</button>
             </form>
         </>
     )

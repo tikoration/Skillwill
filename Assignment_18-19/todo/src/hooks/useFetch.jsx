@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 const useFetch = ({url, method}) => {
 
@@ -6,7 +6,8 @@ const useFetch = ({url, method}) => {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
+
+  const onFetch = useCallback(() => {
     setLoading(true)
     fetch(url, {
       method: method,
@@ -30,7 +31,11 @@ const useFetch = ({url, method}) => {
     }
   }, [url, method])
 
-  return {response, error, loading}
+  useEffect(() =>{
+    onFetch()
+  }, [onFetch])
+
+  return {response, error, loading, resendReqeust: onFetch}
 }
 
 export default useFetch
