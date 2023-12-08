@@ -1,29 +1,26 @@
 import { useState } from "react"
 
 const useRequest = ({url, method}) => {
-   const [loading, setLoading] = useState(false)
-
-   const sendRequest = (body) => {
-    setLoading(true)
-    fetch(url, {
-        method: method,
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${process.env.REACT_APP_API_KEY}`
-        },
-        body: !!body && method !== "GET" ? 
-        JSON.stringify(body) :
-        undefined
-    })
-    .then(res => {
-        if(!res.ok) throw new Error("Error!")
-        setLoading(false)
-        return(res.json())
-    })
+    const [loading, setLoading] = useState(false)
     
-   }
-   return{loading, sendRequest}
+    const sendRequest = async (body, customUrl) => {
+        setLoading(true)
+        const res = await fetch(url || customUrl, {
+            method: method, 
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${process.env.REACT_APP_API_KEY}`
+            },
+            body: !!body && method !== 'GET' ? JSON.stringify(body) : undefined
+        })
 
+        const data = await res.json()
+        setLoading(false)
+
+        return data
+    }
+
+    return {loading, sendRequest}
 }
 
 export default useRequest

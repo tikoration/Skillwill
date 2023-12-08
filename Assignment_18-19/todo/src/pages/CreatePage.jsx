@@ -7,13 +7,14 @@ const CreatePage = () => {
     const {loading, sendRequest} = useRequest({url: '/api/v1/tasks', method: "POST"})
     const navigate = useNavigate()
 
-    const onFormSubmit = (name, isCompleted) => {
-        sendRequest([{name, isCompleted}])
+    const onFormSubmit = (name, contributor, deadline, isCompleted) => {
+        sendRequest([{name, contributor, deadline, isCompleted}])
         .then(() => navigate('/'))
         .catch(err => console.log(err))
       }
 
-     if(loading) return <p>Loading...</p> 
+     if(loading) return <p className="loading">Loading...</p> 
+     
     return(
         <TaskList onFormSubmit={onFormSubmit}/>
     )
