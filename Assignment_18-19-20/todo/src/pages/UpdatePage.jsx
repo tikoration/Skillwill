@@ -6,9 +6,13 @@ import useRequest from "../hooks/useRequest"
 
 const UpdatePage = () => {
     const {taskId} = useParams()
-    const {response, error, loading} = useFetch({url: `/api/v1/tasks/${taskId}`, method: "GET"})
+    const {response: responseMain, error, loading} = useFetch({url: `/api/v1/tasks/${taskId}`, method: "GET"})
+    const {response: responseDone} = useFetch({url: `/api/v1/donetasks/${taskId}`, method: "GET"})
     const navigate = useNavigate()
 
+    const response = responseMain || responseDone
+
+   
     const {sendRequest} = useRequest({url: `/api/v1/tasks/${taskId}`, method: "PUT"})
     const onSubmit = (name, contributor, deadline, isCompleted) => {
          sendRequest({name, contributor, deadline, isCompleted})
@@ -18,7 +22,7 @@ const UpdatePage = () => {
 
     if(loading && !response) return <p className="loading">Loading . . . </p>
     if(error || !response) return <p className="loading">Something went wrong</p>
-    console.log(response)
+
     return(
         <TaskList 
             onFormSubmit={onSubmit}

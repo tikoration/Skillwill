@@ -1,13 +1,16 @@
 import { Link, useNavigate } from "react-router-dom"
-import useFetch from "../hooks/useFetch"
 import useRequest from "../hooks/useRequest"
+import { languageOptions, useLanguageContext } from "../contexts/LanguageContext"
+import {useTasksContext} from "../contexts/TasksContextProvider"
 
 const MainPage = () => {
 
-    const {response, error, loading, resendReqeust} = useFetch({url: '/api/v1/tasks', method: "GET"})
     const {sendRequest} = useRequest({method: "DELETE"})
     const {sendRequest: sendRequestForDone} = useRequest({url: "/api/v1/donetasks", method: "POST"})
     const navigate = useNavigate()
+    const {language} = useLanguageContext()
+    const languageObj = languageOptions[language]
+    const {error, loading, response, onDelete, resendRequestForDone} = useTasksContext()
 
     const toDoList = response?.items.map(task => {
       return {
@@ -19,10 +22,6 @@ const MainPage = () => {
       }
     }) || []
 
-    const onDelete = (id) => {
-      sendRequest(null, `/api/v1/tasks/${id}`)
-      .then(() => resendReqeust())
-    }
     const onDone = (id) => {
 
       toDoList.forEach(task => {
@@ -33,6 +32,7 @@ const MainPage = () => {
             deadline: task.deadline,
             isCompleted: task.isCompleted
           }])
+          .then(() => resendRequestForDone())
           .then(() => sendRequest(null, `/api/v1/tasks/${id}`))
           .then(() => navigate('/donetasks'))
         }
@@ -45,17 +45,17 @@ const MainPage = () => {
     return(
         <div className="App">
             {toDoList.map((todo) =>
-            <div className="task-container"> 
-              <div className="task" key={todo.id}>
-                  <h5>Task</h5>
-                  <h5>Contributor</h5>
-                  <h5>Deadline</h5>
+            <div className="task-container" key={todo.id}> 
+              <div className="task">
+                  <h5>{languageObj.task}</h5>
+                  <h5>{languageObj.contributor}</h5>
+                  <h5>{languageObj.deadline}</h5>
                   <h3>{todo.name}</h3>
                   <h3>{todo.contributor}</h3>
                   <h3>{todo.deadline}</h3>
-                  <Link className="task-btn" to={`/update/${todo.id}`}>Edit</Link>
-                  <button className="task-btn" onClick={() => onDone(todo.id)}>Done</button>
-                  <button className="task-btn" onClick={() => onDelete(todo.id)}>Delete</button>
+                  <Link className="task-btn" to={`/update/${todo.id}`}>{languageObj.edit}</Link>
+                  <button className="task-btn" onClick={() => onDone(todo.id)}>{languageObj.done}</button>
+                  <button className="task-btn" onClick={() => onDelete(todo.id, "tasks")}>{languageObj.delete}</button>
               </div>
             </div>
             )}
