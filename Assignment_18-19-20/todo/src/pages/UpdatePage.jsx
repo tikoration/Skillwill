@@ -6,12 +6,8 @@ import useRequest from "../hooks/useRequest"
 
 const UpdatePage = () => {
     const {taskId} = useParams()
-    const {response: responseMain, error, loading} = useFetch({url: `/api/v1/tasks/${taskId}`, method: "GET"})
-    const {response: responseDone} = useFetch({url: `/api/v1/donetasks/${taskId}`, method: "GET"})
+    const {response, error, loading} = useFetch({url: `/api/v1/tasks/${taskId}`, method: "GET"})
     const navigate = useNavigate()
-
-    const response = responseMain || responseDone
-
    
     const {sendRequest} = useRequest({url: `/api/v1/tasks/${taskId}`, method: "PUT"})
     const onSubmit = (name, contributor, deadline, isCompleted) => {

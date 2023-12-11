@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom"
-import useFetch from "../hooks/useFetch"
 import { languageOptions, useLanguageContext } from "../contexts/LanguageContext"
 import { useTasksContext } from "../contexts/TasksContextProvider"
 
@@ -38,7 +36,6 @@ const DoneTasks = () => {
                         <h3>{todo.deadline}</h3>
                     </div>
                     <div className="done-task-btns">
-                        <Link className="task-btn" to={`/update/${todo.id}`}>{languageObj.edit}</Link>
                         <button className="task-btn" onClick={() => onDelete(todo.id, "donetasks")}>{languageObj.delete}</button>   
                     </div>
                 </div>

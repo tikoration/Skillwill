@@ -22,7 +22,7 @@ const TasksContextProvider = ({children}) => {
         resendRequestForDone()
         )
         .catch((error) => console.error("Error deleting done task:", error))
-    }, [sendRequest])
+    }, [sendRequest, resendRequest, resendRequestForDone])
 
     const contextValue = useMemo(() => 
     ({error, loading, response, onDelete, errorDone, loadingDone, responseDone, resendRequestForDone
