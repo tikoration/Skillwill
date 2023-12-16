@@ -1,0 +1,49 @@
+body{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.trash-icon{
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+}
+
+.trash-icon:hover {
+  color: lightcoral;
+}
+
+.tasks-list{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid black;
+  padding: 5px;
+  width: 400px;
+  justify-content: center;
+  margin: 15px;
+}
+
+/* 
+.main-component{
+  
+} */
+
+
+.links{
+  margin-top: 10px;
+  text-decoration: none;
+  color: black;
+  margin: 10px;
+  border: 1px solid black;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.links:hover{
+  background-color: rgb(217, 205, 205)
+}
+button{
+  cursor: pointer;
+}
