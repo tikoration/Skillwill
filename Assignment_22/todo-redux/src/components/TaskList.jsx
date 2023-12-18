@@ -2,6 +2,7 @@ import { useRef } from "react"
 import { languageSelector } from "../store/language/language.slice"
 import { languageOptions } from "../data/languageData"
 import { useSelector } from "react-redux"
+ 
 
 const TaskList = ({onFormSubmit, name, contributor, deadline, isCompleted}) => {
 
@@ -17,7 +18,7 @@ const TaskList = ({onFormSubmit, name, contributor, deadline, isCompleted}) => {
             onFormSubmit(taskRef.current.value, contributorRef.current.value, deadlineRef.current.value, isCompleted = false)
         }
     }
-   
+
     return( 
         <>
             <form onSubmit={onSubmit}>

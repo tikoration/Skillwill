@@ -1,22 +1,23 @@
 import { useNavigate } from "react-router-dom"
 import TaskList from "../components/TaskList"
-import useRequest from "../hooks/useRequest"
+import { postTask } from "../store/todo/todo.thunks"
+import { useDispatch, useSelector } from "react-redux"
 
 const CreatePage = () => {
-
-    const {loading, sendRequest} = useRequest({url: '/api/v1/tasks', method: "POST"})
     const navigate = useNavigate()
-
-    const onFormSubmit = (name, contributor, deadline, isCompleted) => {
-        sendRequest([{name, contributor, deadline, isCompleted}])
+    const dispatch = useDispatch()
+    const {loading, error, todoList} = useSelector((state) => state.todo)
+    
+    const addTask = (name, contributor, deadline, isCompleted) => {
+        dispatch(postTask([{name, contributor, deadline, isCompleted}]))
         .then(() => navigate('/'))
-        .catch(err => console.log(err))
-      }
+    }
 
-     if(loading) return <p className="loading">Loading...</p> 
-     
+     if(loading && !todoList) return <p className="loading">Loading...</p> 
+     if(error && !todoList) return <p className="loading">{error}</p>
+
     return(
-        <TaskList onFormSubmit={onFormSubmit}/>
+        <TaskList onFormSubmit={addTask}/>
     )
     
 }

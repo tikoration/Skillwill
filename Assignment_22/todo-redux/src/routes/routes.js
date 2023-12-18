@@ -4,28 +4,18 @@ import UpdatePage from "../pages/UpdatePage";
 import DoneTasks from "../pages/DoneTasks";
 import Header from "../components/Header";
 import { Outlet } from "react-router-dom";
-import LanguageContextProvider from "../contexts/LanguageContext";
-import TasksContextProvider from "../contexts/TasksContextProvider";
 
 const routes = [{
     element: (
         <div>
-            <LanguageContextProvider>
                 <Header />
                 <Outlet />
-            </LanguageContextProvider>
         </div>
     ),
     path: '/',
     children: [
         {
-            element: (
-                <div>
-                    <TasksContextProvider>
-                        <MainPage />
-                    </TasksContextProvider>
-                </div>
-            ),
+            element:  <MainPage />,
             index: true
         },
         {
@@ -33,19 +23,11 @@ const routes = [{
             path: '/create'
         },
         {
-            element: <TasksContextProvider>
-            <UpdatePage />
-        </TasksContextProvider>,
+            element: <UpdatePage />,
             path: '/update/:taskId'
         },
         {
-            element: (
-                <div>
-                    <TasksContextProvider>
-                        <DoneTasks />
-                    </TasksContextProvider>
-                </div>
-            ),
+            element: <DoneTasks />,
             path: '/donetasks'
         }
     ]

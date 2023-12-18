@@ -18,15 +18,17 @@ const toggleMode = () => {
     dispatch(toggleTheme())
 }
 
+const darkTheme = theme === "dark" ? {backgroundColor: "#5C4033", color: "white"} :{}
+
 const languageObj = languageOptions[language]
 
     return (
         <header>
-            <Link className="header-link" to={'/'}>{languageObj.mainPage}</Link>
-            <Link className="header-link" to={'/create'}>{languageObj.createPage}</Link>
-            <Link className="header-link" to={'/donetasks'}>{languageObj.completedTasks}</Link>
+            <Link style={darkTheme} className="header-link" to={'/'}>{languageObj.mainPage}</Link>
+            <Link style={darkTheme} className="header-link" to={'/create'}>{languageObj.createPage}</Link>
+            <Link style={darkTheme} className="header-link" to={'/donetasks'}>{languageObj.completedTasks}</Link>
             <img onClick={toggleLan} className="lang" src={languageObj.flag} alt={language} />
-            <button onClick={toggleMode}>{theme === "dark" ? "light" : "dark"}</button>
+            <button style={darkTheme} onClick={toggleMode}>{theme === "dark" ? "light" : "dark"}</button>
         </header>
     )
  }

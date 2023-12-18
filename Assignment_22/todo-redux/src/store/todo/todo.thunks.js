@@ -4,7 +4,7 @@ export const getTasks = createAsyncThunk(
     '/tasks/GET', 
     async (_, ThunkAPI) => {
         try {
-            const res = await fetch("/api/v1/tasks", {
+            const res = await fetch('/api/v1/tasks', {
                 headers: {
                     'Content-Type': "application/json",
                     "Authorization": `Bearer ${process.env.REACT_APP_API_KEY}`
@@ -19,8 +19,9 @@ export const getTasks = createAsyncThunk(
 )
 
 export const getOneTask = createAsyncThunk(
- 
+    '/tasks/GET_ONE',
     async(customUrl, ThunkAPI) => {
+        console.log(customUrl)
       try {
         const res = await fetch(customUrl, {
           headers: {
@@ -80,7 +81,7 @@ export const getOneTask = createAsyncThunk(
     '/tasks/PUT',
     async(taskData, ThunkAPI) => {
       try {
-        const res = await fetch("/api/v1/tasks", {
+        const res = await fetch(taskData.url, {
           method: 'PUT',
           headers: {
             'Content-Type': "application/json",
