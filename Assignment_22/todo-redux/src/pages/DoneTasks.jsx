@@ -3,13 +3,16 @@ import { useDispatch, useSelector } from "react-redux"
 import { languageSelector } from "../store/language/language.slice"
 import { deleteTask, getTasks } from "../store/todo/todo.thunks"
 import { useEffect } from "react"
+import { themeSelector } from "../store/theme/theme.slice"
 
 const DoneTasks = () => {
 
     const {language} = useSelector(languageSelector)
+    const {theme} = useSelector(themeSelector)
     const {loading, error, todoList } = useSelector((state) => state.todo)
     const dispatch = useDispatch()
     const languageObj = languageOptions[language]
+    const darkTheme = theme === "dark" ? {backgroundColor: "#5C4033", color: "white"} :{}
 
     useEffect(() => {
         dispatch(getTasks())
@@ -48,7 +51,7 @@ const DoneTasks = () => {
                         <h3>{todo.deadline}</h3>
                     </div>
                     <div className="done-task-btns">
-                        <button className="task-btn" onClick={() => onDelete(todo.id, "donetasks")}>{languageObj.delete}</button>   
+                        <button style={darkTheme} className="task-btn" onClick={() => onDelete(todo.id, "donetasks")}>{languageObj.delete}</button>   
                     </div>
                 </div>
                 )}

@@ -2,6 +2,7 @@ import { useRef } from "react"
 import { languageSelector } from "../store/language/language.slice"
 import { languageOptions } from "../data/languageData"
 import { useSelector } from "react-redux"
+import { themeSelector } from "../store/theme/theme.slice"
  
 
 const TaskList = ({onFormSubmit, name, contributor, deadline, isCompleted}) => {
@@ -11,6 +12,8 @@ const TaskList = ({onFormSubmit, name, contributor, deadline, isCompleted}) => {
     const contributorRef = useRef()
     const {language} = useSelector(languageSelector)
     const languageObj = languageOptions[language]
+    const {theme} = useSelector(themeSelector)
+    const darkTheme = theme === "dark" ? {backgroundColor: "#5C4033", color: "white"} :{}
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -41,7 +44,7 @@ const TaskList = ({onFormSubmit, name, contributor, deadline, isCompleted}) => {
                     ref={deadlineRef}
                     defaultValue={deadline}
                 /> 
-                <button className="task-btn" type="submit">{languageObj.addTask}</button>
+                <button style={darkTheme} className="task-btn" type="submit">{languageObj.addTask}</button>
             </form>
         </>
     )

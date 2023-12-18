@@ -14,6 +14,7 @@ const MainPage = () => {
     const dispatch = useDispatch()
     const {loading, error, todoList} = useSelector(state => state.todo)
     const {theme} = useSelector(themeSelector)
+    const darkTheme = theme === "dark" ? {backgroundColor: "#5C4033", color: "white"} :{}
 
     const onDelete= (id) => {
       dispatch(deleteTask(`/api/v1/tasks/${id}`))
@@ -63,9 +64,9 @@ const MainPage = () => {
                   <h3>{todo.name}</h3>
                   <h3>{todo.contributor}</h3>
                   <h3>{todo.deadline}</h3>
-                  <Link className="task-btn" to={`/update/${todo.id}`}>{languageObj.edit}</Link>
-                  <button className="task-btn" onClick={() => onDone(todo.id)}>{languageObj.done}</button>
-                  <button className="task-btn" onClick={() => onDelete(todo.id)}>{languageObj.delete}</button>
+                  <Link style={darkTheme} className="task-btn" to={`/update/${todo.id}`}>{languageObj.edit}</Link>
+                  <button style={darkTheme} className="task-btn" onClick={() => onDone(todo.id)}>{languageObj.done}</button>
+                  <button style={darkTheme} className="task-btn" onClick={() => onDelete(todo.id)}>{languageObj.delete}</button>
               </div>
             </div>
             )}
