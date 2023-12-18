@@ -1,0 +1,89 @@
+.App {
+  text-align: center;
+}
+header{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.header-link{
+  display: flex;
+  text-decoration: none;
+  border: 1px solid black;
+  color: black;
+  padding: 10px;
+  background-color: antiquewhite;
+  justify-content: center;
+}
+
+.lang{
+  border: 1px solid gray;
+  cursor: pointer;
+  width: 25px;
+  height: 20px;
+}
+
+.task{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 5px;
+}
+
+.task-container{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  margin: auto;
+  width: 400px;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+
+.task-btn{
+  text-decoration: none;
+  color: black;
+  background-color: antiquewhite;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin: 10px;
+  padding: 5px;
+  font-size: 15px; 
+}
+
+.done-task-btns{
+  display: flex;
+  justify-content: center;
+}
+
+form{
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  gap: 20px;
+}
+
+.loading{
+  text-align: center;
+}
+
+.done-tasks{
+  text-align: center;
+}
+
+.backto-btn{
+  text-decoration: none;
+  color: black;
+  background-color: antiquewhite;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.task-list{
+  margin-bottom: 30px;
+}
