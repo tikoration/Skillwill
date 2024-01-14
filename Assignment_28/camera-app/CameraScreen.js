@@ -60,11 +60,9 @@ const CameraScreen = () => {
           <View
             style={{
               position: "absolute",
-              flexDirection: "row",
               flex: 1,
               width: "100%",
               padding: 20,
-              justifyContent: "space-between",
               backgroundColor: "rgba(0, 0, 0, 0.8)",
               height: 120,
             }}
@@ -106,23 +104,40 @@ const CameraScreen = () => {
               flexDirection: "row",
               flex: 1,
               width: "100%",
-              padding: 20,
               backgroundColor: "rgba(0, 0, 0, 0.8)",
-              height: 250,
-              zIndex: 10,
+              height: 200,
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 80,
             }}
           >
             <View
               style={{
-                alignSelf: "center",
+                visibilty: gallery.length > 0 ? "visible" : "hidden",
+                bottom: 15,
+                height: 50,
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => navigate("CapturedImage")}
+                style={{ flex: 1, width: 50, height: 50 }}
+              >
+                <Image
+                  style={{ flex: 1 }}
+                  source={{ uri: gallery[gallery.length - 1] }}
+                />
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
                 alignItems: "center",
-                flex: 1,
+                gap: 15,
+                bottom: 30,
               }}
             >
               <Text
                 style={{
                   color: "#F6E10E",
-                  bottom: 40,
                   fontSize: 14,
                 }}
               >
@@ -134,7 +149,6 @@ const CameraScreen = () => {
                   height: 74,
                   backgroundColor: "white",
                   borderRadius: 50,
-                  bottom: 20,
                   padding: 3.5,
                 }}
               >
@@ -145,57 +159,32 @@ const CameraScreen = () => {
                     height: 67,
                     borderRadius: 50,
                     backgroundColor: "#fff",
-                    alignSelf: "center",
                     borderColor: "black",
                     borderWidth: 2,
                   }}
-                  underlayColor={"gray"}
                 >
                   <View />
                 </TouchableOpacity>
               </View>
             </View>
-            <View
+            <TouchableOpacity
               style={{
                 borderRadius: 50,
                 width: 50,
                 height: 50,
                 backgroundColor: "rgba(48,48,48, 0.7)",
                 justifyContent: "center",
-                alignSelf: "center",
-                position: "absolute",
-                right: 20,
-                bottom: 90,
+                bottom: 15,
               }}
+              onPress={switchCamera}
             >
               <MaterialIcons
                 name="flip-camera-android"
                 size={26}
                 color="white"
                 style={{ alignSelf: "center" }}
-                onPress={switchCamera}
               />
-            </View>
-          </View>
-          <View
-            style={{
-              position: "absolute",
-              width: "100%",
-              left: 30,
-              bottom: 85,
-            }}
-          >
-            {gallery?.length > 0 && (
-              <TouchableOpacity
-                onPress={() => navigate("CapturedImage")}
-                style={{ flex: 1, width: 50, height: 50 }}
-              >
-                <Image
-                  style={{ flex: 1 }}
-                  source={{ uri: gallery[gallery.length - 1] }}
-                />
-              </TouchableOpacity>
-            )}
+            </TouchableOpacity>
           </View>
         </View>
       ) : (
